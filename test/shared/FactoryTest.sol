@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-import {Test, console2 as console} from "forge-std/Test.sol";
-import {CreateXFactory, ICreateXFactory} from "src/CreateXFactory.sol";
+import {Test} from "forge-std/Test.sol";
+import {CreateXFactory} from "src/CreateXFactory.sol";
 
 import {MockTarget} from "test/shared/mocks/MockTarget.sol";
 import {EventsAndErrors} from "./EventsAndErrors.sol";
