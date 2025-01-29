@@ -44,7 +44,7 @@ contract DeployCreateXFactory is Script {
 			name: "PRIVATE_KEY",
 			defaultValue: vm.deriveKey({
 				mnemonic: vm.envOr({name: "MNEMONIC", defaultValue: TEST_MNEMONIC}),
-				index: uint8(vm.envOr({name: "WALLET_INDEX", defaultValue: uint256(0)}))
+				index: uint8(vm.envOr({name: "EOA_INDEX", defaultValue: uint256(0)}))
 			})
 		});
 
