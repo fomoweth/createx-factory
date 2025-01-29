@@ -10,5 +10,11 @@ interface ICreate2Factory {
 		bytes memory initializer
 	) external payable returns (address instance);
 
-	function computeCreate2Address(bytes32 salt, bytes32 bytecodeHash) external view returns (address instance);
+	function computeCreate2Address(bytes32 salt, bytes32 hash) external view returns (address instance);
+
+	function computeCreate2Address(
+		bytes32 salt,
+		bytes32 hash,
+		address deployer
+	) external view returns (address instance);
 }

@@ -78,14 +78,29 @@ abstract contract Create2Factory is ICreate2Factory {
 		}
 	}
 
-	function computeCreate2Address(bytes32 salt, bytes32 bytecodeHash) public view virtual returns (address instance) {
+	function computeCreate2Address(bytes32 salt, bytes32 hash) public view virtual returns (address instance) {
 		assembly ("memory-safe") {
 			let ptr := mload(0x40)
-			mstore(add(ptr, 0x40), bytecodeHash)
+			mstore(add(ptr, 0x40), hash)
 			mstore(add(ptr, 0x20), salt)
 			mstore(ptr, address())
 			mstore8(add(ptr, 0x0b), 0xff)
-			instance := keccak256(add(ptr, 0x0b), 0x55)
+			instance := shr(0x60, shl(0x60, keccak256(add(ptr, 0x0b), 0x55)))
+		}
+	}
+
+	function computeCreate2Address(
+		bytes32 salt,
+		bytes32 hash,
+		address deployer
+	) public pure virtual returns (address instance) {
+		assembly ("memory-safe") {
+			let ptr := mload(0x40)
+			mstore(add(ptr, 0x40), hash)
+			mstore(add(ptr, 0x20), salt)
+			mstore(ptr, shr(0x60, shl(0x60, deployer)))
+			mstore8(add(ptr, 0x0b), 0xff)
+			instance := shr(0x60, shl(0x60, keccak256(add(ptr, 0x0b), 0x55)))
 		}
 	}
 }
